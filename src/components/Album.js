@@ -44,6 +44,30 @@ class Album extends Component {
     }
   }
 
+  mouseIn(song) {
+    this.setState({moused: song});
+  }
+
+  mouseOut(song) {
+    this.setState({moused: false});
+  }
+
+  onMoused(song, index) {
+    if (this.state.isPlaying && this.state.currentSong === song){
+      return <td><i className="icon ion-md-pause"></i></td>
+    }
+    else if (!this.state.isPlaying && this.state.currentSong === song) {
+      return <td><i className="icon ion-md-play"></i></td>
+    }
+    else if (this.state.moused !== song) {
+      return <td className="song-number">{index + 1}</td>
+    }
+    else {
+      return <td><i className="icon ion-md-play"></i></td>
+    }
+
+  }
+
   render() {
     return (
        <section className="album">
@@ -64,8 +88,11 @@ class Album extends Component {
            <tbody>
              {
                this.state.album.songs.map( (song, index) =>
-                 <tr className="song" key={index} onClick={() => this.handleSongClick(song)} >
-                   <td>{index+1}</td>
+                 <tr className="song" key={index}
+                   onClick={() => this.handleSongClick(song)}
+                   onMouseEnter={() => this.mouseIn(song)}
+                   onMouseLeave={() => this.mouseOut(song)} >
+                   {this.onMoused(song, index)}
                    <td>{song.title}</td>
                    <td>{song.duration}</td>
                  </tr>
