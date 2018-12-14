@@ -1,3 +1,4 @@
+
 import React, {Component} from 'react';
 import albumData from './../data/albums';
 import PlayerBar from './PlayerBar';
@@ -77,6 +78,15 @@ class Album extends Component {
     this.play();
   }
 
+  handleNextClick() {
+    const currentIndex = this.state.album.songs.findIndex(song => this.state.currentSong === song);
+    const numberOfSongs = this.state.album.songs.length - 1;
+    const newIndex = Math.min(numberOfSongs, currentIndex + 1);
+    const newSong = this.state.album.songs[newIndex];
+    this.setSong(newSong);
+    this.play();
+  }
+
   render() {
     return (
        <section className="album">
@@ -114,6 +124,7 @@ class Album extends Component {
            currentSong={this.state.currentSong}
            handleSongClick={() => this.handleSongClick(this.state.currentSong)}
            handlePrevClick={() => this.handlePrevClick()}
+           handleNextClick={() => this.handleNextClick()}
          />
        </section>
     );
