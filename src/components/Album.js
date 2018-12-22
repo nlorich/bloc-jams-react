@@ -84,9 +84,6 @@ class Album extends Component {
     if (this.state.isPlaying && this.state.currentSong === song){
       return <td><i className="icon ion-md-pause"></i></td>
     }
-    else if (!this.state.isPlaying && this.state.currentSong === song) {
-      return <td><i className="icon ion-md-play"></i></td>
-    }
     else if (this.state.moused !== song) {
       return <td className="song-number">{index + 1}</td>
     }
